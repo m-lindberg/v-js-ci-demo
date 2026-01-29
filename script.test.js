@@ -11,4 +11,14 @@ describe('Calculator', () => {
       expect(add(-2, -3)).toBe(-5);
     });
   });
+
+  describe('subtract()', () => {
+    it('subtracts two numbers', () => {
+        expect(subtract(5, 3)).toBe(2);
+    });
+    
+    it('subtracts negative numbers', () => {
+        expect(subtract(-5, -3)).toBe(-2);
+    });
+  });
 });
