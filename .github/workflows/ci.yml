@@ -33,13 +33,11 @@ jobs:
       - name: Run tests
         run: npm test -- --coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/coverage-final.json
-
-          flags: unittests
-          name: codecov-umbrella
+      - name: Upload coverage to Codecov 
+        uses: codecov/codecov-action@v4 
+        with: 
+          token: ${{ secrets.CODECOV_TOKEN }} 
+          fail_ci_if_error: true
       
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
