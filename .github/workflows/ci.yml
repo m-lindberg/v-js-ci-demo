@@ -1,63 +1,63 @@
-name: Jest Tests 
+name: Jest Tests
 
-on: 
-  push: 
-    branches: [ main, dev ] 
-  pull_request: 
-    branches: [ main, dev ] 
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
 
-permissions: 
-  contents: read 
-  pull-requests: write 
+permissions:
+  contents: read
+  pull-requests: write
 
-jobs: 
-  test: 
-    runs-on: ubuntu-latest 
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-    strategy: 
-      matrix: 
-        node-version: [20.x] 
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-    steps: 
-      - name: Checkout code 
-        uses: actions/checkout@v4 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }} 
-        uses: actions/setup-node@v4 
-        with: 
-          node-version: ${{ matrix.node-version }} 
-          cache: npm 
-          
-      - name: Install dependencies 
-        run: npm ci 
-      
-      - name: Run linter 
-        run: | 
-          if npm run | grep -q "lint"; then 
-            npm run lint 
-          else 
-            echo "No linter configured" 
-          fi 
-          
-      - name: Run tests with coverage 
-        run: npm test -- --coverage 
-        
-      - name: Upload coverage to Codecov 
-        uses: codecov/codecov-action@v4 
-        with: 
-          token: ${{ secrets.CODECOV_TOKEN }} 
-          files: ./coverage/lcov.info 
-          fail_ci_if_error: true 
-          
-      - name: Upload coverage report 
-        uses: actions/upload-artifact@v4 
-        with: 
-          name: coverage-report-node-${{ matrix.node-version }} 
-          path: coverage/ 
-          
-      - name: Comment coverage on PR 
-        if: github.event_name == 'pull_request' 
-        uses: romeovs/lcov-reporter-action@v0.3.1 
-        with: 
-          github-token: ${{ secrets.GITHUB_TOKEN }} 
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: |
+          if npm run | grep -q "lint"; then
+            npm run lint
+          else
+            echo "No linter configured"
+          fi
+
+      - name: Run tests with coverage
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-node-${{ matrix.node-version }}
+          path: coverage/
+
+      - name: Comment coverage on PR
+        if: github.event_name == 'pull_request'
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./coverage/lcov.info
