@@ -1,4 +1,4 @@
-import { add, subtract } from "./script.js";
+import { add, subtract, multiply } from "./script.js";
 
 describe('Calculator', () => {
   
@@ -19,6 +19,16 @@ describe('Calculator', () => {
     
     it('subtracts negative numbers', () => {
         expect(subtract(-5, -3)).toBe(-2);
+    });
+  });
+
+  describe('multiply()', () => {
+    it('multiplies two numbers', () => {
+        expect(multiply(3, 4)).toBe(12);
+    });
+  
+    it('multiplies by zero', () => {
+        expect(multiply(5, 0)).toBe(0);
     });
   });
 });
