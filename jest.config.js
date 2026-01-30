@@ -1,5 +1,5 @@
-module.exports = { 
-    testEnvironment: "node", 
-    transform: {}, 
-    moduleFileExtensions: ["js"] 
+export default {
+  testEnvironment: "node",
+  transform: {},
+  moduleFileExtensions: ["js"],
 };
