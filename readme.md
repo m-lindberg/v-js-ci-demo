@@ -10,4 +10,4 @@ A vanilla JavaScript project with CI/CD via GitHub Actions.
 - Automatic tests with Jest
 - Code linting with ESLint
 - CI/CD pipeline with GitHub Actions
-- Kodtäckningsrapportering med Codecov
+- Code coverage rapport with Codecov

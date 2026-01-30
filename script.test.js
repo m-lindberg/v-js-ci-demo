@@ -1,4 +1,4 @@
-const { add } = require('./script');
+const { add, subtract } = require('./script');
 
 describe('Calculator', () => {
   
