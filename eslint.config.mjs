@@ -17,7 +17,19 @@ export default defineConfig([
   { 
     files: ["**/*.js"], 
     languageOptions: { 
-      sourceType: "script" 
+      globals: {
+        window: "readonly",
+        document: "readonly"
+      } 
     } 
   },
+  {
+    files: ["**/*.test.js"],
+    languageOptions: {
+      globals: {
+        require: "readonly",
+        module: "readonly"
+      }
+    }
+  }
 ]);
